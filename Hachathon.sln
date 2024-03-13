@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointment.Common", "Appointment.Common\Appointment.Common.csproj", "{12C20BDB-4815-4FFA-96A6-72477E91A2D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis.Maintenance", "Redis.Maintenance\Redis.Maintenance.csproj", "{51DC5B9C-CD52-420E-9FF0-2A762955CA01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sequential.Web.UI", "Sequential.Web.UI\Sequential.Web.UI.csproj", "{909448CA-B2BA-4663-A0F6-BDF67770715B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sequential.Handler", "Sequential.Handler\Sequential.Handler.csproj", "{A96D5D17-975F-4A3F-8CBA-B297F090B02F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		BankoScreenDebug|Any CPU = BankoScreenDebug|Any CPU
+		BankoScreenRelease|Any CPU = BankoScreenRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Home|Any CPU = Home|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.BankoScreenDebug|Any CPU.ActiveCfg = BankoScreenDebug|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.BankoScreenDebug|Any CPU.Build.0 = BankoScreenDebug|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.BankoScreenRelease|Any CPU.ActiveCfg = BankoScreenRelease|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.BankoScreenRelease|Any CPU.Build.0 = BankoScreenRelease|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Home|Any CPU.ActiveCfg = Home|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Home|Any CPU.Build.0 = Home|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C20BDB-4815-4FFA-96A6-72477E91A2D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.BankoScreenDebug|Any CPU.ActiveCfg = BankoScreenDebug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.BankoScreenDebug|Any CPU.Build.0 = BankoScreenDebug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.BankoScreenRelease|Any CPU.ActiveCfg = BankoScreenRelease|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.BankoScreenRelease|Any CPU.Build.0 = BankoScreenRelease|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Home|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Home|Any CPU.Build.0 = Debug|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51DC5B9C-CD52-420E-9FF0-2A762955CA01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.BankoScreenDebug|Any CPU.ActiveCfg = BankoScreenDebug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.BankoScreenDebug|Any CPU.Build.0 = BankoScreenDebug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.BankoScreenRelease|Any CPU.ActiveCfg = BankoScreenRelease|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.BankoScreenRelease|Any CPU.Build.0 = BankoScreenRelease|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Home|Any CPU.ActiveCfg = Debug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Home|Any CPU.Build.0 = Debug|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909448CA-B2BA-4663-A0F6-BDF67770715B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.BankoScreenDebug|Any CPU.ActiveCfg = BankoScreenDebug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.BankoScreenDebug|Any CPU.Build.0 = BankoScreenDebug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.BankoScreenRelease|Any CPU.ActiveCfg = BankoScreenRelease|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.BankoScreenRelease|Any CPU.Build.0 = BankoScreenRelease|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Home|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Home|Any CPU.Build.0 = Debug|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96D5D17-975F-4A3F-8CBA-B297F090B02F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51342673-086E-4F51-9CFF-6B155B77A32A}
+	EndGlobalSection
+EndGlobal

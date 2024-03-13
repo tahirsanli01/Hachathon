@@ -1,181 +1,159 @@
 ﻿@{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Hackathon Tester Page</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Hackathon Tester Page</title>
 </head>
 <body>
-    <div class="header">
-        <img src='/ING_Logo.png' alt='ING Logo' />
-        <h1>Identity Approvement</h1>
-        <img src="~/ING_Logo.png
+	<div class="header">
+		<img src='/ING_Logo.png' alt='ING Logo' />
+		<h1>Identity Approvement</h1>
+		<img src="~/ING_Logo.png
 " alt='ING Logo' />
-    </div>
+	</div>
 
-    <div class="identity-card">
-        <div class="identity">
-            <p id="identity-number">Identity Number: </p>
-            <p id="identity-name">Name: </p>
-            <p id="identity-surname">Surname: </p>
-        </div>
-    </div>
-        
-    
-    
-
-    <div class="footer">
-        <h3>"© 2024 Global Hackathon."</h3>
-    </div>
-
-    @*<div id="mdlSetBranchInformation" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Giriş Ekranı</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="post" action="/Home/GetRequestDirectorateCode">
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2">BranchCode</div>
-                                <div class="col-lg-10"><input id="inpBranchCode" name="BranchCode" class="form-control" value="" /></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2">BranchName</div>
-                                <div class="col-lg-10"><input id="inpBranchName" name="BranchName" class="form-control" value="" /></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="SaveChanges()">Değişiklikleri Kaydet</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>*@
+	<div class="identity-card">
+		<div class="identity">
+			<p id="identity-message-code"></p>
+			<p id="identity-message-content"></p>
+		</div>
+	</div>
 
 
-    @*<div id="mdlShowMessage" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Branch Code: <span id="BranchCode"></span></p>
-                    <p>Branch Name: <span id="BranchName"></span></p>
-                    <p>Message Code: <span id="MessageCode"></span></p>
-                    <p>Message Content: <span id="MessageContent"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-    <link rel="stylesheet" href="~/css/site.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.10/signalr.min.js" integrity="sha512-BmGZazcNUtxFySozyj3/Tx+0gcMZmipD2xgp4CQnf2dE3DOV1hQ7Zpkx6gjSJhWkv7VB3ElIodo2CjSAw4iPEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="text/javascript">
-        var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://172.20.10.2:9875/sequentialHub").build();
-
-        connectionHub.start().then(function () {
-            if (typeof (Storage) !== "undefined") {
-                if (localStorage.IsSavedBranchInformation != undefined) {
-                    ConnectionGroupMethod();
-                    console.log("Grup Bağlantı kuruldu");
-                } else {
-                    console.log("Grup Bağlantı kurulamadı");
-                }
-            } else {
-                console.log("Grup Bağlantı kurulamadı");
-            }
-
-        }).catch(function (err) {
-            console.log("Bağlantı kurulamadı");
-        });
-
-        $(document).ready(function () {
-
-            if (typeof (Storage) !== "undefined") {
-                if (localStorage.IsSavedBranchInformation != "true") {
-                    $("#mdlSetBranchInformation").modal("show");
-                } else {
-
-                }
-            } else {
-
-            }
-
-            setInterval(function () { ShowModalMessage() }, 3000);
-
-        });
-        myTimeout=null;
-        let id = 1;
-        function ShowModalMessage() {
-            var WaitedRequestNumbers = [];
-            WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
-
-            if (WaitedRequestNumbers == undefined || WaitedRequestNumbers.length == 0) {
-
-            }
-            else {
-                var request = WaitedRequestNumbers.shift();
-                localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
-                $("#identity-number").html(++id);
-                $("#identity-name").html("Aysegul");
-                $("#identity-surname").html("Oguz");
-                $("#MessageContent").html(request.MessageContent);
-                $("#mdlShowMessage").modal("show");
-                myTimeout = setTimeout(HideModalMessage, 2500);
-            }
-
-        }
-
-        function HideModalMessage() {
-            $("#mdlShowMessage").modal("hide");
-            clearTimeout(myTimeout);
-        }
-
-        function ConnectionGroupMethod() {
-            connectionHub.invoke('JoinDirectorate', localStorage.BranchCode);
-        }
-
-        function SaveChanges() {
-            if (typeof (Storage) !== "undefined") {
-                localStorage.IsSavedBranchInformation = "true";
-                localStorage.BranchCode = $("#inpBranchCode").val();
-                localStorage.BranchName = $("#inpBranchName").val();
-                ConnectionGroupMethod();
-                location.reload();
-            } else {
 
 
-            }
-        }
+	<div class="footer">
+		<h3>"© 2024 Global Hackathon."</h3>
+	</div>
 
-        connectionHub.on('requestNumber', function (sender, message) {
-            var WaitedRequestNumbers = [];
-            if (localStorage.WaitedRequestNumbers == undefined || localStorage.WaitedRequestNumbers == "") {
-                localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
-            }
-            WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
-            var comingRequest = JSON.parse(message);
-            WaitedRequestNumbers.push(comingRequest);
-            localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
-        });
-    </script>
+	<div id="mdlSetBranchInformation" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Giriş Ekranı</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" action="/Home/GetRequestDirectorateCode">
+					<div class="modal-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-2">BranchCode</div>
+								<div class="col-lg-10"><input id="inpBranchCode" name="BranchCode" class="form-control" value="" /></div>
+							</div>
+							<div class="row">
+								<div class="col-lg-2">BranchName</div>
+								<div class="col-lg-10"><input id="inpBranchName" name="BranchName" class="form-control" value="" /></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="SaveChanges()">Değişiklikleri Kaydet</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<link rel="stylesheet" href="~/css/site.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.10/signalr.min.js" integrity="sha512-BmGZazcNUtxFySozyj3/Tx+0gcMZmipD2xgp4CQnf2dE3DOV1hQ7Zpkx6gjSJhWkv7VB3ElIodo2CjSAw4iPEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script type="text/javascript">
+		var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://172.20.10.2:9875/sequentialHub").build();
+
+		connectionHub.start().then(function () {
+			if (typeof (Storage) !== "undefined") {
+				if (localStorage.IsSavedBranchInformation != undefined) {
+					ConnectionGroupMethod();
+					console.log("Grup Bağlantı kuruldu");
+				} else {
+					console.log("Grup Bağlantı kurulamadı");
+				}
+			} else {
+				console.log("Grup Bağlantı kurulamadı");
+			}
+
+		}).catch(function (err) {
+			console.log("Bağlantı kurulamadı");
+		});
+
+		$(document).ready(function () {
+
+			if (typeof (Storage) !== "undefined") {
+				if (localStorage.IsSavedBranchInformation != "true") {
+					$("#mdlSetBranchInformation").modal("show");
+				} else {
+
+				}
+			} else {
+
+			}
+
+			setInterval(function () { ShowModalMessage() }, 3000);
+
+		});
+		myTimeout = null;
+		let id = 1;
+		function ShowModalMessage() {
+			var WaitedRequestNumbers = [];
+			WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
+
+			if (WaitedRequestNumbers == undefined || WaitedRequestNumbers.length == 0) {
+
+			}
+			else {
+				var request = WaitedRequestNumbers.shift();
+				localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+				$("#identity-message-code").html(request.MessageCode);
+				$("#identity-message-content").html(request.MessageContent);
+				$("#mdlShowMessage").modal("show");
+				myTimeout = setTimeout(HideModalMessage, 2500);
+			}
+
+		}
+
+		function HideModalMessage() {
+			$("#mdlShowMessage").modal("hide");
+			clearTimeout(myTimeout);
+		}
+
+		function ConnectionGroupMethod() {
+			connectionHub.invoke('JoinDirectorate', localStorage.BranchCode);
+		}
+
+		function SaveChanges() {
+			if (typeof (Storage) !== "undefined") {
+				localStorage.IsSavedBranchInformation = "true";
+				localStorage.BranchCode = $("#inpBranchCode").val();
+				localStorage.BranchName = $("#inpBranchName").val();
+				ConnectionGroupMethod();
+				location.reload();
+			} else {
+
+
+			}
+		}
+
+		connectionHub.on('requestNumber', function (sender, message) {
+			var WaitedRequestNumbers = [];
+			if (localStorage.WaitedRequestNumbers == undefined || localStorage.WaitedRequestNumbers == "") {
+				localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+			}
+			WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
+			var comingRequest = JSON.parse(message);
+			WaitedRequestNumbers.push(comingRequest);
+			localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+		});
+	</script>
 </body>
 </html>

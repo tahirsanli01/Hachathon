@@ -39,7 +39,6 @@ namespace Sequential.Web.UI.Business.SignalR
         {
             var request = JsonConvert.DeserializeObject<RequestNumber>(message);
             await Clients.Group(sender).SendAsync("requestNumber", sender, message);
-
         }
     }
 }

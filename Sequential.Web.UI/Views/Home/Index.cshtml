@@ -10,8 +10,29 @@
     <title>Hackathon Tester Page</title>
 </head>
 <body>
+    <div class="header">
+        <img src='/ING_Logo.png' alt='ING Logo' />
+        <h1>Identity Approvement</h1>
+        <img src="~/ING_Logo.png
+" alt='ING Logo' />
+    </div>
 
-    <div id="mdlSetBranchInformation" class="modal" tabindex="-1" role="dialog">
+    <div class="identity-card">
+        <div class="identity">
+            <p id="identity-number">Identity Number: </p>
+            <p id="identity-name">Name: </p>
+            <p id="identity-surname">Surname: </p>
+        </div>
+    </div>
+        
+    
+    
+
+    <div class="footer">
+        <h3>"© 2024 Global Hackathon."</h3>
+    </div>
+
+    @*<div id="mdlSetBranchInformation" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -39,10 +60,10 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div>*@
 
 
-    <div id="mdlShowMessage" class="modal" tabindex="-1" role="dialog">
+    @*<div id="mdlShowMessage" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,9 +80,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
-
+    <link rel="stylesheet" href="~/css/site.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -102,6 +123,7 @@
 
         });
         myTimeout=null;
+        let id = 1;
         function ShowModalMessage() {
             var WaitedRequestNumbers = [];
             WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
@@ -112,9 +134,9 @@
             else {
                 var request = WaitedRequestNumbers.shift();
                 localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
-                $("#BranchCode").html(request.BranchCode);
-                $("#BranchName").html(request.BranchName);
-                $("#MessageCode").html(request.MessageCode);
+                $("#identity-number").html(++id);
+                $("#identity-name").html("Aysegul");
+                $("#identity-surname").html("Oguz");
                 $("#MessageContent").html(request.MessageContent);
                 $("#mdlShowMessage").modal("show");
                 myTimeout = setTimeout(HideModalMessage, 2500);
@@ -139,6 +161,7 @@
                 ConnectionGroupMethod();
                 location.reload();
             } else {
+
 
             }
         }

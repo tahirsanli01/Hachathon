@@ -89,7 +89,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.10/signalr.min.js" integrity="sha512-BmGZazcNUtxFySozyj3/Tx+0gcMZmipD2xgp4CQnf2dE3DOV1hQ7Zpkx6gjSJhWkv7VB3ElIodo2CjSAw4iPEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script type="text/javascript">
-        var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://localhost:5111/sequentialHub").build();
+        var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://172.20.10.2:9875/sequentialHub").build();
 
         connectionHub.start().then(function () {
             if (typeof (Storage) !== "undefined") {

@@ -12,7 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+        builder =>
+        {
+            builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+        }));
+builder.Services.AddScoped<HttpClient>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 builder.Services.AddSingleton<IRedisCacheManagerIndexes0>(sp => new RedisCacheManager(0));
@@ -21,7 +29,7 @@ builder.Services.AddSingleton<IRedisAuthorizedUserAccount7>(sp => new RedisCache
 
 builder.Services.AddSingleton<RequestNumberPublish>();
 var app = builder.Build();
-
+app.UseCors("CorsPolicy");
 var RequestNumberPublish = app.Services.GetService<RequestNumberPublish>();
 
 // Configure the HTTP request pipeline.

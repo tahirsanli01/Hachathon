@@ -13,7 +13,14 @@ builder.Services.AddSingleton<SequentialHub>();
 builder.Services.AddSingleton<RequestNumberSubscriber>();
 builder.Services.AddSingleton<IRedisRequestDirectorateCode6>(sp => new RedisCacheManager(6));
 builder.Services.AddSingleton<IRedisAuthorizedUserAccount7>(sp => new RedisCacheManager(7));
-
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+        builder =>
+        {
+            builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+        }));
 
 var app = builder.Build();
 
@@ -24,6 +31,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
+app.UseCors("CorsPolicy");
 app.UseStaticFiles();
 
 app.UseRouting();

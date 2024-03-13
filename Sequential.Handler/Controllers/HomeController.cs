@@ -46,6 +46,8 @@ namespace Sequential.Handler.Controllers
                 imageStream.Write(picture1Bytes, 0, picture1Bytes.Length);
                 FileStream fs = System.IO.File.Create(path1);
                 imageStream.WriteTo(fs);
+                fs.Flush();
+                fs.Dispose();
             }
 
             using (MemoryStream imageStream = new MemoryStream())
@@ -54,6 +56,8 @@ namespace Sequential.Handler.Controllers
                 imageStream.Write(picture2Bytes, 0, picture2Bytes.Length);
                 FileStream fs = System.IO.File.Create(path2);
                 imageStream.WriteTo(fs);
+                fs.Flush();
+                fs.Dispose();
             }
 
             var result = await _httpClient.GetStringAsync($"compare?identity={request.Identity}&pic1={path1}&pic2={path2}");

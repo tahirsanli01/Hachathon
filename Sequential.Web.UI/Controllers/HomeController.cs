@@ -15,5 +15,15 @@ namespace Sequential.Web.UI.Controllers
         {
             return View();
         }
-    }
+
+		public IActionResult KimlikDogrulamaBasarili()
+		{
+			return View();
+		}
+
+		public IActionResult ParaAktarimOnay()
+		{
+			return View();
+		}
+	}
 }

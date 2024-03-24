@@ -8,6 +8,20 @@
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<title>Hackathon Tester Page</title>
+	<style>
+		.swal2-popup {
+			margin: 40px auto;
+		}
+
+		@@font-face {
+			font-family: "myFont";
+			src: url("/ingmeweb-regular.woff2.ttf");
+		}
+
+		#messagecontent{
+			list-style:none;
+		}
+	</style>
 </head>
 <body>
 	<div class="header">
@@ -19,8 +33,37 @@
 
 	<div class="identity-card">
 		<div class="identity">
+			<div style="font-family:myFont;">
+				<table id="identityInfo">
+					<tr>
+						<td>Kimlik No</td>
+						<td>:</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Ad</td>
+						<td>:</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Soyad</td>
+						<td>:</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Seri No</td>
+						<td>:</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<br />
+			<ul id="messagecontent" style="font-family:myFont; padding-left:0px;">
+			</ul>
 			<p id="identity-message-code"></p>
 			<p id="identity-message-content"></p>
+
+			<a id="aKimlikDogrulamaButtonBasarili" style="display:none;" class="btn btn-success" href="/Home/KimlikDogrulamaBasarili">Devam Et</a>
 		</div>
 	</div>
 
@@ -67,6 +110,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.10/signalr.min.js" integrity="sha512-BmGZazcNUtxFySozyj3/Tx+0gcMZmipD2xgp4CQnf2dE3DOV1hQ7Zpkx6gjSJhWkv7VB3ElIodo2CjSAw4iPEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script type="text/javascript">
 		var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://172.20.10.2:9875/sequentialHub").build();
@@ -99,7 +143,7 @@
 
 			}
 
-			setInterval(function () { ShowModalMessage() }, 3000);
+			setInterval(function () { ShowModalMessage() }, 200);
 
 		});
 		myTimeout = null;
@@ -114,12 +158,50 @@
 			else {
 				var request = WaitedRequestNumbers.shift();
 				localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
-				$("#identity-message-code").html(request.MessageCode);
-				$("#identity-message-content").html(request.MessageContent);
-				$("#mdlShowMessage").modal("show");
-				myTimeout = setTimeout(HideModalMessage, 2500);
+				if (request.MessageType == "reload") {
+					location.reload();
+				}
+				else if (request.MessageType == "identity") {
+					$('#identityInfo').html(request.MessageContent);
+					makeAction(request);
+				}
+				else if (request.MessageType == "sweet-success") {
+					Swal.fire({
+						position: "top-end",
+						icon: "success",
+						title: request.MessageContent,
+						showConfirmButton: false,
+						timer: 3000
+					}).then((result) => {
+						makeAction(request);
+					});
+				}
+				else if (request.MessageType == "sweet-error") {
+					Swal.fire({
+						position: "top-end",
+						icon: "error",
+						title: request.MessageContent,
+						showConfirmButton: false,
+						timer: 3000
+					}).then((result) => {
+						makeAction(request);
+					});
+				}
+				else {
+					$('#messagecontent').append("<li><b>" + request.MessageContent + "</b></li>");
+					makeAction(request);
+				}
+
+
+				myTimeout = setTimeout(HideModalMessage, 100);
 			}
 
+		}
+
+		function makeAction(request) {
+			if (request.MessageCode == 1) { // Kimlik Doğrulama Başarılı
+				$("#aKimlikDogrulamaButtonBasarili").show();
+			}
 		}
 
 		function HideModalMessage() {

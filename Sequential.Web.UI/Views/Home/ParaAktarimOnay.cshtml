@@ -1,0 +1,129 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Hackathon Tester Page</title>
+
+	<style>
+		.swal2-popup {
+			margin: 40px auto;
+		}
+
+		@@font-face {
+			font-family: "myFont";
+			src: url("/ingmeweb-regular.woff2.ttf");
+		}
+	</style>
+</head>
+<body>
+	<div class="header" style="font-family:myFont;">
+		<img src='/ING_Logo.png' alt='ING Logo' />
+		<h1>Identity Approvement</h1>
+		<img src="~/ING_Logo.png
+" alt='ING Logo' />
+	</div>
+
+	<div class="identity-card" style="font-family:myFont;">
+		<div class="identity" style="padding-left:0px;">
+			<div style="width:90%; margin:0 auto;">
+				Hesabınıza 12345678910 numaralı hesabınıza 30.000 TL yatırma işlemi yapılacaktır." onaylıyor musunuz?
+				<br />
+				<div style="text-align:center;">
+					<a class="btn btn-success" onclick="IslemiTamamla()">Onayla</a>
+					<a class="btn btn-danger" href="/Home/Index">Reddet</a>
+				</div>
+			</div>
+			<a id="aKimlikDogrulamaButtonBasarili" style="display:none;" class="btn btn-success" href="/Home/KimlikDogrulamaBasarili">Devam Et</a>
+		</div>
+	</div>
+
+
+
+
+	<div class="footer" style="font-family:myFont;">
+		<h3>"© 2024 Global Hackathon."</h3>
+	</div>
+
+	<link rel="stylesheet" href="~/css/site.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.10/signalr.min.js" integrity="sha512-BmGZazcNUtxFySozyj3/Tx+0gcMZmipD2xgp4CQnf2dE3DOV1hQ7Zpkx6gjSJhWkv7VB3ElIodo2CjSAw4iPEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script type="text/javascript">
+		var connectionHub = new signalR.HubConnectionBuilder().withUrl("http://172.20.10.2:9875/sequentialHub").build();
+
+		connectionHub.start().then(function () {
+			if (typeof (Storage) !== "undefined") {
+				if (localStorage.IsSavedBranchInformation != undefined) {
+					ConnectionGroupMethod();
+					console.log("Grup Bağlantı kuruldu");
+				} else {
+					console.log("Grup Bağlantı kurulamadı");
+				}
+			} else {
+				console.log("Grup Bağlantı kurulamadı");
+			}
+
+		}).catch(function (err) {
+			console.log("Bağlantı kurulamadı");
+		});
+
+		$(document).ready(function () {
+
+			setInterval(function () { ShowModalMessage() }, 200);
+
+		});
+		myTimeout = null;
+		let id = 1;
+		function ShowModalMessage() {
+			var WaitedRequestNumbers = [];
+			WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
+
+			if (WaitedRequestNumbers == undefined || WaitedRequestNumbers.length == 0) {
+
+			}
+			else {
+				var request = WaitedRequestNumbers.shift();
+				localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+				if (request.MessageType == "reload") {
+					location.href = "/Home/Index";
+				}
+			}
+		}
+
+		function IslemiTamamla() {
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "İşlem Başarılı",
+				showConfirmButton: false,
+				timer: 3000
+			}).then((result) => {
+				location.href = "/Home/Index";
+			});
+		}
+
+		function ConnectionGroupMethod() {
+			connectionHub.invoke('JoinDirectorate', localStorage.BranchCode);
+		}
+
+		connectionHub.on('requestNumber', function (sender, message) {
+			var WaitedRequestNumbers = [];
+			if (localStorage.WaitedRequestNumbers == undefined || localStorage.WaitedRequestNumbers == "") {
+				localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+			}
+			WaitedRequestNumbers = JSON.parse(localStorage.WaitedRequestNumbers);
+			var comingRequest = JSON.parse(message);
+			WaitedRequestNumbers.push(comingRequest);
+			localStorage.WaitedRequestNumbers = JSON.stringify(WaitedRequestNumbers);
+		});
+	</script>
+</body>
+</html>

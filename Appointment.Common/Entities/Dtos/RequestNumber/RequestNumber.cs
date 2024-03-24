@@ -4,9 +4,11 @@
     {
         public int BranchCode { get; set; }
         public string BranchName { get; set; }
+        public string MessageType { get; set; }
         public string MessageCode { get; set; }
         public string MessageContent { get; set; }
-    }
+		public string MessageContentReact { get; set; }
+	}
 
 
     public class RequestCompareImage
